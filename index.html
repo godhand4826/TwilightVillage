@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Twilight Village</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .village {
+            background-image: url(village.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            flex: 1 1 0%;
+        }
+
+        .notice {
+            position: absolute;
+            margin-top: 40%;
+            left: 5%;
+            width: 90%;
+            border-radius: 20px;
+            overflow: hidden;
+            transform: scale(0);
+            transition: .15s;
+            transition-timing-function: ease-in;
+        }
+
+        .notice.active {
+            transform: scale(1);
+        }
+
+        .notice .content {
+            position: relative;
+            padding-top: 20%;
+            padding: 10%;
+            text-align: center;
+            color: rgba(255, 200, 0, 1);
+            background-color: rgba(38, 9, 9, 0.728);
+            line-height: 3vw;
+        }
+    </style>
+    <script>
+        document.addEventListener('click', () =>
+            document.getElementById('notice').classList.toggle('active'))
+    </script>
+</head>
+
+<body>
+    <div id="notice" class="notice">
+        <div class="content">
+            <h3>STAY TUNED</h3>
+            <h1>Coming Soon</h1>
+            <h5>UNDER CONSTRUCTION</h5>
+        </div>
+    </div>
+    <div class="container">
+        <div class="village"></div>
+    </div>
+</body>
+
+</html>

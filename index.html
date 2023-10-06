@@ -11,10 +11,19 @@
             margin: 0;
         }
 
+        .outer::-webkit-scrollbar {
+            display: none;
+        }
+
         .outer {
             display: flex;
             height: 100vh;
             width: 100%;
+            overflow: auto;
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
 
         .inner {
@@ -22,7 +31,7 @@
         }
 
         .village {
-            width: 300%;
+            width: 4000px;
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -52,13 +61,24 @@
             background-color: rgba(38, 9, 9, 0.728);
             line-height: 3vw;
         }
+
+        .signboard {
+            width: 250px;
+            position: absolute;
+            left: 50%;
+            top: 5px;
+            transform: translate(-50%, 0%);
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.9));
+            -webkit-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.9));
+        }
     </style>
     <script src="./imageMapResizer.min.js"></script>
     <script>
         window.onload = function () {
             imageMapResize(); // fix image map area coords
+            document.querySelector(".village").addEventListener("click", e => console.log('Image: ', e.offsetX, e.offsetY))
+            document.querySelector(".village").addEventListener("click", e => console.log('Screen: ', e.x, e.y))
 
-            document.querySelector(".village").addEventListener("click", e => console.log(e.x, e.y))
             document.querySelector("#signboard").addEventListener("click", flash)
             document.querySelector("#cave").addEventListener("click", flash)
             document.querySelector("#well").addEventListener("click", flash)
@@ -71,25 +91,41 @@
                 notice.classList.toggle('active')
                 setTimeout(() => notice.classList.toggle('active'), 2500);
             }
+
+            const villageHight = document.querySelector(".village").offsetHeight
+            const villageWidth = document.querySelector(".village").offsetWidth
+            const outerHight = document.querySelector(".outer").offsetHeight
+            const outerWidth = document.querySelector(".outer").offsetWidth
+
+            const startX = 1886
+            const startY = 800
+            document.querySelector(".outer").scrollTop = startY - outerHight / 2
+            document.querySelector(".outer").scrollLeft = startX - outerWidth / 2
+            console.log(villageHight, villageWidth, outerHight, outerWidth, startX, startY)
+
         }
+
+
     </script>
 </head>
 
 <body>
     <div id="notice" class="notice">
         <div class="content">
-            <h3>STAY TUNED</h3>
-            <h1>Coming Soon</h1>
-            <h5>UNDER CONSTRUCTION</h5>
+            <h3>想喝酒嗎?</h3>
+            <h1>今天打烊...</h1>
+            <h5>疑！裡面是不是有一個服務生在睡覺</h5>
         </div>
     </div>
-    <div class="outer">
+    <img src="./signboard.png" class="signboard">
+
+    <div id="outer" class="outer">
         <div class="inner">
             <img class="village" src="./village.png" alt="village.png" usemap="#village_map">
             <map name="village_map">
-                <area tabindex="1" shape="rect" coords="40,20,250,95" alt="signboard" href="javascript:void(0)"
+                <area tabindex="1" shape="rect" coords="1077,431,1274,542" alt="signboard" href="javascript:void(0)"
                     id="signboard">
-                <area tabindex="2" shape="circle" coords="466,116,44" alt="cave" href="javascript:void(0)" id="cave">
+                <area tabindex="2" shape="circle" coords="1588,509,44" alt="cave" href="javascript:void(0)" id="cave">
                 <area tabindex="3" shape="poly" coords="376,484,398,491,395,514,362,519,353,500" alt="well"
                     href="javascript:void(0)" id="well">
             </map>

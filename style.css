@@ -41,6 +41,15 @@ body {
     font-size: 50px;
     font-family: cursive;
 }
+@keyframes fadeout {
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      display: none;
+    }
+  }
 
 @keyframes loading {
     0% {

@@ -6,6 +6,56 @@ body {
     display: none;
 }
 
+.splash-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffc573;
+    z-index: 100;
+}
+
+.splash-title {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 400px;
+    transform: translate(-50%, 0%);
+    animation-name: loading;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    /*align center*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.splash-image {
+    width: 200px;
+}
+
+
+.splash-content {
+    font-size: 50px;
+    font-family: cursive;
+}
+
+@keyframes loading {
+    0% {
+        top: 30%;
+    }
+
+    50% {
+        top: 25%;
+    }
+
+    100% {
+        top: 30%;
+    }
+}
+
 .outer {
     display: flex;
     height: 100vh;

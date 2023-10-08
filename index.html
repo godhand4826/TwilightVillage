@@ -51,7 +51,9 @@
             document.querySelector(".outer").scrollTop = startY - outerHight / 2
             document.querySelector(".outer").scrollLeft = startX - outerWidth / 2
             console.log(villageHight, villageWidth, outerHight, outerWidth, startX, startY)
-
+            
+            //Loading complete
+            document.querySelector("#splash-window").style.display = "none"
         }
 
 
@@ -59,6 +61,13 @@
 </head>
 
 <body>
+    <div id="splash-window" class="splash-window">
+        <div class="splash-title">
+            <img src="./images/no-bg-icon-192x192.png" class="splash-image" />
+            <div class="splash-content">Twilight Village</div>
+        </div>
+    </div>
+
     <div id="bar-notice" class="notice">
         <div class="content">
             <h3>想喝酒嗎?</h3>

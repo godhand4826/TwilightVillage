@@ -1,0 +1,20 @@
+{
+    "name": "Twilight Village",
+    "short_name": "Twilight Village",
+    "start_url": "https://twilight.coupletunnel.com/",
+    "display": "standalone",
+    "description": "Twilight Village Map",
+    "background_color": "#00FF62",
+    "icons": [
+        {
+            "src": "./images/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./images/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

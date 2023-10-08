@@ -22,7 +22,7 @@ body {
 }
 
 .village {
-    /* width: 4000px; */
+    width: 4000px;
     background-size: cover;
     background-repeat: no-repeat;
 }

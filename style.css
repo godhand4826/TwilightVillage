@@ -25,6 +25,8 @@ body {
     animation-name: loading;
     animation-duration: 2.5s;
     animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+
     /*align center*/
     display: flex;
     flex-direction: column;
@@ -34,23 +36,29 @@ body {
 
 .splash-image {
     width: 200px;
+    transition: transform 0.8s;
 }
 
+.splash-image:active {
+    transform: rotateY(180deg);
+}
 
 .splash-content {
     font-size: 50px;
     font-family: cursive;
 }
+
 @keyframes fadeout {
     50% {
-      opacity: 1;
+        opacity: 1;
     }
+
     100% {
-      opacity: 0;
-      display: none;
-      z-index: -999;
+        opacity: 0;
+        display: none;
+        z-index: -999;
     }
-  }
+}
 
 @keyframes loading {
     0% {
@@ -113,12 +121,22 @@ body {
     line-height: 3vw;
 }
 
+.header {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    /*align center*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/*header flex item*/
+.header-item {}
+
 .signboard {
     width: 250px;
-    position: absolute;
-    left: 50%;
-    top: 5px;
-    transform: translate(-50%, 0%);
     filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.9));
     -webkit-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.9));
 }

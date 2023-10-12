@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="./style.css">
     <script src="./lib/imageMapResizer.min.js"></script>
     <script src="./lib/w3-include-html.js"></script>
+    <script src="./lib/utils.js"></script>
+    <script src="./pages/bar/fetch.js"></script>
     <script>
 
         function flash(noticeId) {
@@ -33,33 +35,45 @@
             }
         }
 
-        window.onload = function () {
-            includeHTML();
+        function model(noticeId) {
+            return function (e) {
+                const notice = document.getElementById(noticeId)
+                if (notice.classList.contains('active')) return
+                notice.classList.toggle('active')
+            }
+        }
+
+        window.onload = async function () {
+            await includeHTML();
+            //sleep 300ms
+            await new Promise((r) => setTimeout(() => { r('') }, 300))
+
             imageMapResize(); // fix image map area coords
             document.querySelector(".village").addEventListener("click", e => console.log('Image: ', e.offsetX, e.offsetY))
             document.querySelector(".village").addEventListener("click", e => console.log('Screen: ', e.x, e.y))
 
-            document.querySelector("#signboard").addEventListener("click", flash('bar-notice'))
+            document.querySelector("#bar").addEventListener("click", async (e) => {
+                const list = await getPodcastList();
+                barSetState(list)
+                model('bar-notice')(e)
+            })
             document.querySelector("#cave").addEventListener("click", flash('cave-notice'))
             document.querySelector("#well").addEventListener("click", flash('well-notice'))
             document.querySelector("#guideline_btn").addEventListener("click", flash('guideline-notice'))
-
             const villageHight = document.querySelector(".village").offsetHeight
             const villageWidth = document.querySelector(".village").offsetWidth
             const outerHight = document.querySelector(".outer").offsetHeight
             const outerWidth = document.querySelector(".outer").offsetWidth
 
-            const startX = 1886
-            const startY = 800
+            const startX = 1164
+            const startY = 500
             document.querySelector(".outer").scrollTop = startY - outerHight / 2
             document.querySelector(".outer").scrollLeft = startX - outerWidth / 2
             console.log(villageHight, villageWidth, outerHight, outerWidth, startX, startY)
 
             //Loading complete
             document.querySelector("#splash-window").style.animation = "fadeout 5s ease-in-out forwards"
-            
         }
-
 
     </script>
 </head>
@@ -71,14 +85,8 @@
             <div class="splash-content">Twilight Village</div>
         </div>
     </div>
-
-    <div id="bar-notice" class="notice">
-        <div class="content">
-            <h3>想喝酒嗎?</h3>
-            <h1>今天打烊...</h1>
-            <h5>疑！裡面是不是有一個服務生在睡覺</h5>
-        </div>
-    </div>
+    <div w3-include-html="./pages/bar/index.html"></div>
+    <div w3-include-html="./pages/guideline/index.html"></div>
 
     <div id="well-notice" class="notice">
         <div class="content">
@@ -87,7 +95,6 @@
             <h5>居民賴以為生的井，井水似乎有迷幻的作用</h5>
         </div>
     </div>
-    <div w3-include-html="guideline.html"></div>
 
     <div id="cave-notice" class="notice">
         <div class="content">
@@ -104,8 +111,7 @@
         <div class="inner">
             <img class="village" src="./images/village-map.png" alt="village.png" usemap="#village_map">
             <map name="village_map">
-                <area tabindex="1" shape="rect" coords="1077,431,1274,542" alt="signboard" href="javascript:void(0)"
-                    id="signboard">
+                <area tabindex="1" shape="rect" coords="1077,431,1274,542" alt="bar" href="javascript:void(0)" id="bar">
                 <area tabindex="2" shape="circle" coords="1588,509,44" alt="well" href="javascript:void(0)" id="well">
                 <area tabindex="3" shape="poly" coords="2397,256,2390,259,2387,267,2382,294,2406,300,2408,266,2404,260"
                     alt="cave" href="javascript:void(0)" id="cave">
@@ -113,4 +119,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -18,6 +18,9 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/4.3.2/fxparser.min.js"
+        integrity="sha512-z69UGBEMgyBNitMTxgvXisypdFwWTjCB9X+hgDafYo1t3CK/HPaRLzX1YE6/5G+CNIomhmkAyvye21If59Px4w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./lib/imageMapResizer.min.js"></script>
     <script src="./lib/w3-include-html.js"></script>
     <script src="./lib/utils.js"></script>
@@ -73,6 +76,33 @@
 
             //Loading complete
             document.querySelector("#splash-window").style.animation = "fadeout 5s ease-in-out forwards"
+
+            // fetch rss.xml as json object
+            const options = {
+                ignoreAttributes: false,
+                //name: is either tagname, or attribute name
+                //jPath: upto the tag name
+                isArray: (_name, jpath, _isLeafNode, _isAttribute) => ["rss.channel.item"].includes(jpath)
+            };
+
+            fetch('rss.xml')
+                .then(r => r.text())
+                .then(xml => new XMLParser(options).parse(xml))
+                .then(rssObj => ({
+                    title: rssObj.rss.channel.title,
+                    description: rssObj.rss.channel.description.replace(/Hosting provided by SoundOn/gm, ''),
+                    link: rssObj.rss.channel.link,
+                    image: rssObj.rss.channel.image.url,
+                    lastBuildDate: rssObj.rss.channel.lastBuildDate,
+                    episode: [...rssObj.rss.channel.item.map((item) => ({
+                        title: item.title,
+                        description: item.description,
+                        author: item['dc:creator'],
+                        pubDate: item.pubDate,
+                        encodeContent: item['content:encoded'],
+                    }))]
+                }))
+                .then(console.log, console.error)
         }
 
     </script>

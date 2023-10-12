@@ -1,0 +1,23 @@
+name: fetch rss workflow
+on:
+  # schedule:
+  #   - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch_rss:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get RSS Feed
+        run: curl https://feeds.soundon.fm/podcasts/6a4a151f-41df-449c-87ac-7337e0c17c01.xml > rss.xml
+      - name: Commit file changes
+        run: |
+            git config --global user.name 'twilightvillage2023'
+            git config --global user.email 'twilightvillage2023@gmail.com'
+            git add .
+            git diff --quiet --cached || git commit -m "Update rss.xml"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

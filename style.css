@@ -126,6 +126,7 @@ body {
 .content {
     overflow: auto;
     max-height: 300px;
+    min-height: 400px;
 }
 
 .header {

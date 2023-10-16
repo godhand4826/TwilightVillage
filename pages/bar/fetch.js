@@ -41,7 +41,8 @@ function barSetState(podcastList) {
         `
     }).join("");
     barContent.innerHTML = `
-    ${barContent.innerHTML}
+    <p style="color:rgb(255,255,255,0.5);"><a href="https://apple.co/3Fi6xQD" class="link-word">Apple Podcast</a> & <a
+    href="https://open.spotify.com/show/75ZbcPo0VQvqfC5Mx2jaAS?si=85c193a4eb6d4b58" class="link-word">Spotify</a> 收聽完整版</p>
     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/show/75ZbcPo0VQvqfC5Mx2jaAS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>   
     ${content}
     `;

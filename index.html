@@ -76,33 +76,6 @@
 
             //Loading complete
             document.querySelector("#splash-window").style.animation = "fadeout 5s ease-in-out forwards"
-
-            // fetch rss.xml as json object
-            const options = {
-                ignoreAttributes: false,
-                //name: is either tagname, or attribute name
-                //jPath: upto the tag name
-                isArray: (_name, jpath, _isLeafNode, _isAttribute) => ["rss.channel.item"].includes(jpath)
-            };
-
-            fetch('rss.xml')
-                .then(r => r.text())
-                .then(xml => new XMLParser(options).parse(xml))
-                .then(rssObj => ({
-                    title: rssObj.rss.channel.title,
-                    description: rssObj.rss.channel.description.replace(/Hosting provided by SoundOn/gm, ''),
-                    link: rssObj.rss.channel.link,
-                    image: rssObj.rss.channel.image.url,
-                    lastBuildDate: rssObj.rss.channel.lastBuildDate,
-                    episode: [...rssObj.rss.channel.item.map((item) => ({
-                        title: item.title,
-                        description: item.description,
-                        author: item['dc:creator'],
-                        pubDate: item.pubDate,
-                        encodeContent: item['content:encoded'],
-                    }))]
-                }))
-                .then(console.log, console.error)
         }
 
     </script>

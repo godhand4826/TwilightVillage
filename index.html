@@ -90,7 +90,8 @@
             const outerHight = document.querySelector(".outer").offsetHeight
             const outerWidth = document.querySelector(".outer").offsetWidth
 
-            const center = document.querySelector(location.hash || '#bar') ?? document.querySelector("#bar")
+            const center = document.querySelector(`#${new URLSearchParams(window.location.search).get('id') ?? 'bar'}`)
+                ?? document.querySelector("#bar")
             const [startX, startY] = getAreaCenter(center)
 
             document.querySelector(".outer").scrollTop = startY - outerHight / 2

@@ -46,10 +46,32 @@
             }
         }
 
+        async function sleep(ms) {
+            return new Promise(r => setTimeout(() => r(ms), ms))
+        }
+
+        function getAreaCenter(element) {
+            const shape = element.getAttribute("shape")
+            const coords = element.getAttribute("coords").split(',').map(c => Number(c))
+            if(['circ', 'circle'].includes(shape)) {
+                coords.pop() // remove the radius of the circle
+            }
+
+            // calculate center of mass by calculate average of vectors
+            center = [0, 0]
+            for(let i = 0; i < coords.length; i = i + 2) {
+                center[0] += coords[i]
+                center[1] += coords[i+1]
+            }
+            center[0] = center[0] * 2 / coords.length
+            center[1] = center[1] * 2 / coords.length
+            return center
+        }
+
         window.onload = async function () {
             await includeHTML();
-            //sleep 300ms
-            await new Promise((r) => setTimeout(() => { r('') }, 300))
+
+            // await sleep(300)
 
             imageMapResize(); // fix image map area coords
             document.querySelector(".village").addEventListener("click", e => console.log('Image: ', e.offsetX, e.offsetY))
@@ -68,8 +90,10 @@
             const outerHight = document.querySelector(".outer").offsetHeight
             const outerWidth = document.querySelector(".outer").offsetWidth
 
-            const startX = 1164
-            const startY = 500
+            const center = document.querySelector(`#${new URLSearchParams(window.location.search).get('id') ?? 'bar'}`)
+                ?? document.querySelector("#bar")
+            const [startX, startY] = getAreaCenter(center)
+
             document.querySelector(".outer").scrollTop = startY - outerHight / 2
             document.querySelector(".outer").scrollLeft = startX - outerWidth / 2
             console.log(villageHight, villageWidth, outerHight, outerWidth, startX, startY)

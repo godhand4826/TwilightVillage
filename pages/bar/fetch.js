@@ -48,3 +48,10 @@ function barSetState(podcastList) {
     `;
 }
 
+
+async function getHtmlBlog(ep) {
+    const res = await fetch(`/blog/${ep}/index.html`)
+    const html = await res.text()
+    return html;
+}
+

@@ -87,7 +87,7 @@
             document.querySelector("#bar").addEventListener("click", async (e) => {
                 model('bar-notice')(e)
             })
-            
+
             //NOTE: loading blog html
             const ep6BlogHtml = await getHtmlBlog('ep6');
             document.querySelector("#ep6-blog").innerHTML = ep6BlogHtml;
@@ -96,6 +96,13 @@
                 ele.addEventListener("click", e => {
                     e.stopPropagation();
                     console.log('click blog img')
+                })
+            })
+            //NOTE: collapse click
+            document.querySelectorAll(".t-collapse-btn").forEach(ele => {
+                ele.addEventListener("click", e => {
+                    var content = ele.querySelector(".t-collapse-content");
+                    content.classList.toggle("t-collapse-active")
                 })
             })
 

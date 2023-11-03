@@ -78,8 +78,8 @@
         }
 
         window.onload = async function () {
-            await includeHTML();
             restorePath();
+            await includeHTML();
             const pathname = window.location.pathname;
             const building = pathname.split("/")[1]
 
@@ -139,8 +139,8 @@
             <div class="splash-content">Twilight Village</div>
         </div>
     </div>
-    <div w3-include-html="./pages/bar/index.html"></div>
-    <div w3-include-html="./pages/guideline/index.html"></div>
+    <div w3-include-html="/pages/bar/index.html"></div>
+    <div w3-include-html="/pages/guideline/index.html"></div>
 
     <div id="well-notice" class="notice">
         <div class="pop-content content">

@@ -17,6 +17,12 @@
         -webkit-filter: drop-shadow(0px 0px 10px rgba(255, 237, 99, 0.9));
     }
 </style>
+<script defer>
+    const pathname = window.location.pathname;
+    if (pathname.startsWith('/bar/blog')) model('bar-notice')()
+    if (pathname.startsWith('/bar/blog/ep6')) { document.querySelector('#blog-ep6').classList.toggle("t-collapse-active") }
+</script>
+
 <div id="bar-notice" class="notice">
     <button id="bar-notice-x" class="close" onclick="noticeClose('bar-notice')"></button>
     <div class="list-content content">
@@ -32,7 +38,7 @@
             <p>Episode 6 </p>
             EP6 這兩種顏料的製作原料？是屍體？是蟲？
             <p>瑞, 12, 耀徵</p>
-            <div class="t-collapse-content t-collapse-active">
+            <div class="t-collapse-content t-collapse-active" id="blog-ep6">
                 <div id="ep6-blog"></div>
             </div>
         </div>

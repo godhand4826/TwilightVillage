@@ -10,7 +10,7 @@
         gtag('js', new Date());
         gtag('config', 'G-CJ2H8S06F4');
     </script>
-
+    <script src="/lib/urlRedirect.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
@@ -78,7 +78,10 @@
         }
 
         window.onload = async function () {
+            restorePath();
             await includeHTML();
+            const pathname = window.location.pathname;
+            const building = pathname.split("/")[1]
 
             imageMapResize(); // fix image map area coords
             document.querySelector(".village").addEventListener("click", e => console.log('Image: ', e.offsetX, e.offsetY))
@@ -114,14 +117,14 @@
             const outerHight = document.querySelector(".outer").offsetHeight
             const outerWidth = document.querySelector(".outer").offsetWidth
 
-            const center = document.querySelector(`#${new URLSearchParams(window.location.search).get('id') ?? 'bar'}`)
-                ?? document.querySelector("#bar")
+            const center = document.querySelector(`#${building || 'bar'}`) ?? document.querySelector("#bar")
+
             const [startX, startY] = getAreaCenter(center)
 
             document.querySelector(".outer").scrollTop = startY - outerHight / 2
             document.querySelector(".outer").scrollLeft = startX - outerWidth / 2
             console.log(villageHight, villageWidth, outerHight, outerWidth, startX, startY)
-
+            
             //Loading complete
             document.querySelector("#splash-window").style.animation = "fadeout 5s ease-in-out forwards"
         }
@@ -136,8 +139,8 @@
             <div class="splash-content">Twilight Village</div>
         </div>
     </div>
-    <div w3-include-html="./pages/bar/index.html"></div>
-    <div w3-include-html="./pages/guideline/index.html"></div>
+    <div w3-include-html="/pages/bar/index.html"></div>
+    <div w3-include-html="/pages/guideline/index.html"></div>
 
     <div id="well-notice" class="notice">
         <div class="pop-content content">

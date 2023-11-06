@@ -17,10 +17,19 @@
         -webkit-filter: drop-shadow(0px 0px 10px rgba(255, 237, 99, 0.9));
     }
 </style>
+
 <script defer>
     const pathname = window.location.pathname;
     if (pathname.startsWith('/bar/blog')) model('bar-notice')()
     if (pathname.startsWith('/bar/blog/ep6')) { document.querySelector('#blog-ep6').classList.toggle("t-collapse-active") }
+    if (pathname.startsWith('/bar/blog/ep7')) { document.querySelector('#blog-ep7').classList.toggle("t-collapse-active") }
+
+    //NOTE: loading blog list html
+    const blogs = ['ep6', 'ep7']
+    blogs.forEach(async (blog) => {
+        const blogHtml = await getHtmlBlog(blog);
+        document.querySelector(`#blog-${blog}`).innerHTML = blogHtml;
+    })
 </script>
 
 <div id="bar-notice" class="notice">
@@ -34,13 +43,20 @@
             height="152" frameborder="0" allowfullscreen=""
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
+        <!---Blog List-->
+        <div class="pod-item t-collapse-btn">
+            <p>Episode 7 </p>
+            EP7 畫圖三原色居然不是紅藍黃？ X 蜂蜜不會壞？
+            <p>瑞, 12, 耀徵</p>
+            <div class="t-collapse-content t-collapse-active" id="blog-ep7"> </div>
+        </div>
+
         <div class="pod-item t-collapse-btn">
             <p>Episode 6 </p>
             EP6 這兩種顏料的製作原料？是屍體？是蟲？
             <p>瑞, 12, 耀徵</p>
-            <div class="t-collapse-content t-collapse-active" id="blog-ep6">
-                <div id="ep6-blog"></div>
-            </div>
+
+            <div class="t-collapse-content t-collapse-active" id="blog-ep6"> </div>
         </div>
 
         <div class="pod-item">

@@ -91,10 +91,7 @@
                 model('bar-notice')(e)
             })
 
-            //NOTE: loading blog html
-            const ep6BlogHtml = await getHtmlBlog('ep6');
-            document.querySelector("#ep6-blog").innerHTML = ep6BlogHtml;
-
+            
             document.querySelectorAll(".blog-img").forEach(ele => {
                 ele.addEventListener("click", e => {
                     e.stopPropagation();
@@ -124,7 +121,7 @@
             document.querySelector(".outer").scrollTop = startY - outerHight / 2
             document.querySelector(".outer").scrollLeft = startX - outerWidth / 2
             console.log(villageHight, villageWidth, outerHight, outerWidth, startX, startY)
-            
+
             //Loading complete
             document.querySelector("#splash-window").style.animation = "fadeout 5s ease-in-out forwards"
         }

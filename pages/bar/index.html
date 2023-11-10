@@ -20,15 +20,22 @@
 
 <script defer>
     const pathname = window.location.pathname;
+    // open model
     if (pathname.startsWith('/bar/blog')) model('bar-notice')()
-    if (pathname.startsWith('/bar/blog/ep6')) { document.querySelector('#blog-ep6').classList.toggle("t-collapse-active") }
-    if (pathname.startsWith('/bar/blog/ep7')) { document.querySelector('#blog-ep7').classList.toggle("t-collapse-active") }
 
-    //NOTE: loading blog list html
-    const blogs = ['ep6', 'ep7']
-    blogs.forEach(async (blog) => {
-        const blogHtml = await getHtmlBlog(blog);
-        document.querySelector(`#blog-${blog}`).innerHTML = blogHtml;
+    const [_, focusEp] = pathname.match(/^\/bar\/blog\/(\w+)/)
+    document.querySelectorAll(`[id^='blog-']`).forEach(async(e) => {
+        const ep = e.id.slice('blog-'.length)
+        // load content
+        const content = e.querySelector('.t-collapse-content')
+        if(content) {
+            content.innerHTML = await getHtmlBlog(ep)
+        }
+        // expand and scroll into view
+        if(ep == focusEp) {
+            content?.classList.toggle("t-collapse-active")
+            e.scrollIntoView()
+        }
     })
 </script>
 
@@ -44,42 +51,42 @@
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
         <!---Blog List-->
-        <div class="pod-item t-collapse-btn">
+        <div class="pod-item t-collapse-btn" id="blog-ep7">
             <p>Episode 7 </p>
             EP7 畫圖三原色居然不是紅藍黃？ X 蜂蜜不會壞？
             <p>瑞, 12, 耀徵</p>
-            <div class="t-collapse-content t-collapse-active" id="blog-ep7"> </div>
+            <div class="t-collapse-content t-collapse-active"> </div>
         </div>
 
-        <div class="pod-item t-collapse-btn">
+        <div class="pod-item t-collapse-btn" id="blog-ep6">
             <p>Episode 6 </p>
             EP6 這兩種顏料的製作原料？是屍體？是蟲？
             <p>瑞, 12, 耀徵</p>
 
-            <div class="t-collapse-content t-collapse-active" id="blog-ep6"> </div>
+            <div class="t-collapse-content t-collapse-active"> </div>
         </div>
 
-        <div class="pod-item">
-            <p>Episode 5 </p>
+        <div class="pod-item" id="blog-ep5">
+            <p>Episode 5</p>
             EP05 🍺 永遠看不膩的電影題材(下)-超時空攔截
             <p>瑞, 12, 耀徵</p>
         </div>
-        <div class="pod-item">
+        <div class="pod-item" id="blog-ep4">
             <p>Episode 4</p>
             EP04 🍺 永遠看不膩的電影題材(上)-超時空攔截
             <p>瑞, 12, 耀徵</p>
         </div>
-        <div class="pod-item">
+        <div class="pod-item" id="blog-ep3">
             <p>Episode 3</p>
             EP03🍺買二手物品到底是買到賺到還是買到撞到?
             <p> 瑞 , 冠龍 , 耀徵</p>
         </div>
-        <div class="pod-item">
+        <div class="pod-item" id="blog-ep2">
             <p>Episode 2</p>
             EP02🍺短影音時代下，廣播節目已成為時代眼淚？
             <p>瑞, Tux, 冠龍, 耀徵</p>
         </div>
-        <div class="pod-item">
+        <div class="pod-item" id="blog-ep1">
             <p>Episode 1</p>
             EP01🐎🌵🍺 剩下一個位子，前往暮光小鎮
             <p>酒保 , 服務生, 不知道哪來的商人</p>

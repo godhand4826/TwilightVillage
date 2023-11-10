@@ -23,7 +23,7 @@
     // open model
     if (pathname.startsWith('/bar/blog')) model('bar-notice')()
 
-    const [_, focusEp] = pathname.match(/^\/bar\/blog\/(\w+)/)
+    const [_, focusEp] = pathname?.match(/^\/bar\/blog\/(\w+)/) ?? []
     document.querySelectorAll(`[id^='blog-']`).forEach(async(e) => {
         const ep = e.id.slice('blog-'.length)
         // load content

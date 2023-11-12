@@ -24,15 +24,15 @@
     if (pathname.startsWith('/bar/blog')) model('bar-notice')()
 
     const [_, focusEp] = pathname?.match(/^\/bar\/blog\/(\w+)/) ?? []
-    document.querySelectorAll(`[id^='blog-']`).forEach(async(e) => {
+    document.querySelectorAll(`[id^='blog-']`).forEach(async (e) => {
         const ep = e.id.slice('blog-'.length)
         // load content
         const content = e.querySelector('.t-collapse-content')
-        if(content) {
+        if (content) {
             content.innerHTML = await getHtmlBlog(ep)
         }
         // expand and scroll into view
-        if(ep == focusEp) {
+        if (ep == focusEp) {
             content?.classList.toggle("t-collapse-active")
             e.scrollIntoView()
         }
@@ -51,9 +51,15 @@
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
         <!---Blog List-->
+        <div class="pod-item t-collapse-btn" id="blog-ep8">
+            <p>Episode 8 </p>
+            EP8 🍺 大麻~ 一定要跟上的議題！大麻~
+            <p>瑞, 12, 耀徵</p>
+        </div>
+        
         <div class="pod-item t-collapse-btn" id="blog-ep7">
             <p>Episode 7 </p>
-            EP7 畫圖三原色居然不是紅藍黃？ X 蜂蜜不會壞？
+            EP7 畫圖三原色居然不是紅藍黃？ 蜂蜜不會壞？
             <p>瑞, 12, 耀徵</p>
             <div class="t-collapse-content t-collapse-active"> </div>
         </div>

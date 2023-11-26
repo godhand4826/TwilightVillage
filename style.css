@@ -103,16 +103,17 @@ body {
     z-index: 1;
     left: 5%;
     width: 90%;
-    transform: scale(0);
+    transform: scale(0) translate(0, -50%);
     transition: .15s;
     transition-timing-function: ease-in;
+    top: 40%;
 }
 
 .notice.active {
-    transform: scale(1);
+    transform: scale(1) translate(0, -50%);
 }
 
-.notice .content {
+.content {
     position: relative;
     padding-top: 20%;
     padding: 2%;
@@ -174,6 +175,7 @@ body {
 }
 
 .t-collapse-btn {}
+
 .t-collapse-btn:has(.t-collapse-content.t-collapse-active)::after {
     text-align: right;
     content: "...";
@@ -188,3 +190,15 @@ body {
     overflow: hidden;
     max-height: 0;
 }
+
+.swipe-modal-up {
+    position: fixed;
+    z-index: 1;
+    top: 100%;
+    transition: .3s;
+    transition-timing-function: ease-in;
+  }
+  
+  .swipe-modal-up.active {
+    transform: translate(0, -90%);
+  }
